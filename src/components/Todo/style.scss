@@ -1,0 +1,99 @@
+@font-face {
+    font-family: Montserrat;
+    src: local("../fonts/Montserrat"), url("../fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+
+.todo {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #333333;
+    max-width: 50%;
+    margin: 0 auto;
+    &-nav {
+        margin-top: 45px;
+        border-bottom: 1px solid #bdbdbd;
+    }
+    &-nav > ul {
+        width: 85%;
+        margin: 0 auto;
+        list-style-type: none;
+        display: flex;
+        box-sizing: border-box;
+        justify-content: space-between;
+        padding-left: 0px;
+    }
+    &-nav > ul > li {
+        min-width: 15%;
+    }
+    &-nav-item {
+        text-decoration: none;
+        color: #333333;
+        display: block;
+        padding-bottom: 15px;
+        text-align: center;
+        border-bottom: 4px solid #ffffff;
+        transition: all ease-in-out 0.3s;
+        border-radius: 0px 0px 4px 4px;
+    }
+    &-nav-item.active {
+        border-bottom: 4px solid #2f80ed;
+    }
+    &-nav-item:hover {
+        border-bottom: 4px solid #2f80ed;
+        border-radius: 0px 0px 4px 4px;
+        cursor: pointer;
+    }
+
+    &-add {
+        margin-top: 18px;
+        &-input {
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 17px;
+            color: #828282;
+
+            width: 78.2%;
+            height: 56px;
+            border: 1px solid #bdbdbd;
+            box-sizing: border-box;
+            border-radius: 12px;
+
+            &:hover {
+                border: 1px solid #2f80ed;
+                box-shadow: 0 0 5px #719ece;
+            }
+            &:focus {
+                outline: none;
+                border: 1px solid #2f80ed;
+                box-shadow: 0 0 5px #719ece;
+            }
+        }
+        &-button {
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            color: #ffffff;
+
+            cursor: pointer;
+            float: right;
+            width: 17.92%;
+            height: 56px;
+            background: #2f80ed;
+            box-shadow: 0px 2px 6px rgba(127, 177, 243, 0.4);
+            border: none;
+            border-radius: 12px;
+
+            &:hover {
+                box-shadow: 0 0 10px #719ece;
+            }
+        }
+    }
+}

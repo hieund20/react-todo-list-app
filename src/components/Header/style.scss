@@ -1,0 +1,21 @@
+@font-face {
+    font-family: Raleway;
+    src: local("../fonts/Raleway"), url("../fonts/Raleway/static/Raleway-ExtraBold.ttf") format("truetype");
+}
+
+header {
+    margin: 0 auto;
+    margin-top: 32px;
+}
+
+header h1 {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+    letter-spacing: -0.045em;
+
+    color: #333333;
+}
