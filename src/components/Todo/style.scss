@@ -49,18 +49,19 @@
     &-add {
         margin-top: 18px;
         &-input {
-            font-family: Montserrat;
+            font-family: Montserrat, sans-serif;
             font-style: normal;
-            font-weight: normal;
+            font-weight: bold;
             font-size: 14px;
             line-height: 17px;
-            color: #828282;
+            color: #181717;
 
             width: 78.2%;
             height: 56px;
             border: 1px solid #bdbdbd;
             box-sizing: border-box;
             border-radius: 12px;
+            padding-left: 1rem;
 
             &:hover {
                 border: 1px solid #2f80ed;
