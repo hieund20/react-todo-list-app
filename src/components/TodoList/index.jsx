@@ -35,7 +35,8 @@ function TodoList(props) {
     function handleTaskClick(task) {
         if (onTaskClick !== null) {
             if (checkStatus !== 'Completed') {
-                task.isActive = false;
+                if (!task.isActive) { task.isActive = true; }
+                else task.isActive = false;
                 onTaskClick(task);
             }
             else {
@@ -57,6 +58,7 @@ function TodoList(props) {
             onRemoveAllTask();
         }
     }
+
 
     return (
         <div className="list">
@@ -121,7 +123,8 @@ function TodoList(props) {
                 ))
             }
             {
-                checkStatus === 'Completed' && tasks.length > 0 &&
+                checkStatus === 'Completed' &&
+                tasks.some(task => task.isActive === false) === true &&
                 <button
                     className="list-delete"
                     onClick={() => handleRemoveAllTaskClick()}>
