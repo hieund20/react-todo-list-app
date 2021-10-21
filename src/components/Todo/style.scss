@@ -37,14 +37,12 @@
         text-align: center;
         border-bottom: 4px solid #ffffff;
         transition: all ease-in-out 0.3s;
-        border-radius: 0px 0px 4px 4px;
     }
     &-nav-item.active {
         border-bottom: 4px solid #2f80ed;
     }
     &-nav-item:hover {
         border-bottom: 4px solid #2f80ed;
-        border-radius: 0px 0px 4px 4px;
         cursor: pointer;
     }
 
@@ -93,6 +91,26 @@
 
             &:hover {
                 box-shadow: 0 0 10px #719ece;
+            }
+        }
+    }
+}
+
+/*REPONSIVE*/
+@media screen and (max-width: 1099px) {
+    .todo {
+        max-width: 80% !important;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .todo {
+        &-add {
+            &-input {
+                height: 3rem;
+            }
+            &-button {
+                height: 3rem;
             }
         }
     }

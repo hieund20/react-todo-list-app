@@ -1,61 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
 TodoList.propTypes = {
-    todos: PropTypes.array,
-    activeTodos: PropTypes.array,
-    completedTodos: PropTypes.array,
+    tasks: PropTypes.array,
     checkStatus: PropTypes.string,
-    onTodoClick: PropTypes.func,
-    onActiveTodoClick: PropTypes.func,
-    onRemoveToDoClick: PropTypes.func,
+    onTaskClick: PropTypes.func,
+    onRemoveTaskClick: PropTypes.func,
     onRemoveAllClick: PropTypes.func
 };
 
 TodoList.defaultProps = {
-    todos: [],
-    activeTodos: [],
-    completedTodos: [],
+    tasks: [],
     checkStatus: '',
-    onTodoClick: null,
-    onActiveTodoClick: null,
-    onRemoveToDoClick: null,
-    onRemoveAllClick: null
+    onTaskClick: null,
+    onRemoveTask: null,
+    onRemoveAllTask: null
 }
 
 function TodoList(props) {
     const {
-        todos,
-        activeTodos,
-        completedTodos,
+        tasks,
         checkStatus,
-        onTodoClick,
-        onActiveTodoClick,
-        onRemoveToDoClick,
-        onRemoveAllClick } = props;
+        onTaskClick,
+        onRemoveTask,
+        onRemoveAllTask } = props;
+    const [reRender, setReRender] = useState(1);
 
-    function handleClick(todo) {
-        if (onTodoClick !== null) {
-            onTodoClick(todo);
+    useEffect((task) => {
+        //Re-render to update status of checkbox
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, reRender);
+
+    function handleTaskClick(task) {
+        if (onTaskClick !== null) {
+            if (checkStatus !== 'Completed') {
+                task.isActive = false;
+                onTaskClick(task);
+            }
+            else {
+                task.isActive = true;
+                onTaskClick(task);
+            }
+            setReRender(reRender === 1 ? 0 : 1);
         }
     };
 
-    function handleActiveClick(activeTodo) {
-        if (onActiveTodoClick !== null) {
-            onActiveTodoClick(activeTodo);
+    function handleRemoveClick(task) {
+        if (onRemoveTask !== null) {
+            onRemoveTask(task);
         }
     }
 
-    function handleRemoveClick(completedTodo) {
-        if (onRemoveToDoClick !== null) {
-            onRemoveToDoClick(completedTodo);
-        }
-    }
-
-    function handleRemoveAllClick() {
-        if (onRemoveAllClick !== null) {
-            onRemoveAllClick();
+    function handleRemoveAllTaskClick() {
+        if (onRemoveAllTask !== null) {
+            onRemoveAllTask();
         }
     }
 
@@ -63,72 +62,69 @@ function TodoList(props) {
         <div className="list">
             {
                 checkStatus === 'All' &&
-                todos.map(todo => (
+                tasks.map(task => (
                     <div className="list-todo">
-                        {todo.checked === true &&
-                            <input
-                                className="list-todo-checkbox"
-                                type="checkbox"
-                                key={todo.id}
-                                onClick={() => handleClick(todo)}
-                                checked
-                            />
-                        }
-                        {
-                            todo.checked === false &&
-                            <input
-                                className="list-todo-checkbox"
-                                type="checkbox"
-                                key={todo.id}
-                                onClick={() => handleClick(todo)}
-                            />
-                        }
-                        <span className={`list-todo-text ${todo.checked === true ? 'check' : ''}`}>
-                            {todo.content}
+                        <input
+                            className="list-todo-checkbox"
+                            type="checkbox"
+                            key={task.key}
+                            onClick={() => handleTaskClick(task)}
+                            checked={task.isActive === false ? true : false}
+                        />
+                        <span className={`list-todo-text ${task.isActive}`}>
+                            {task.title}
                         </span>
                     </div>
                 ))
             }
             {
                 checkStatus === 'Active' &&
-                activeTodos.map(activeTodo => (
-                    <div className="list-todo">
+                tasks.filter(task => {
+                    return task.isActive === true;
+                }).map(task => (
+                    <div className="list-todo" >
                         <input
                             className="list-todo-checkbox"
                             type="checkbox"
-                            key={activeTodo.id}
-                            onClick={() => handleActiveClick(activeTodo)}
+                            key={task.key}
+                            onClick={() => handleTaskClick(task)}
+                            checked={task.isActive === false ? true : false}
                         />
-                        <span className="list-todo-text">{activeTodo.content}</span>
+                        <span className={`list-todo-text ${task.isActive}`}>
+                            {task.title}
+                        </span>
                     </div>
                 ))
             }
             {
                 checkStatus === 'Completed' &&
-                completedTodos.map(completedTodo => (
-                    <div className="list-todo">
+                tasks.filter(task => {
+                    return task.isActive === false;
+                }).map(task => (
+                    <div className="list-todo" >
                         <input
                             className="list-todo-checkbox"
                             type="checkbox"
-                            key={completedTodo.id}
-                            checked
+                            key={task.key}
+                            onClick={() => handleTaskClick(task)}
+                            checked={task.isActive === false ? true : false}
                         />
-                        <span className={`list-todo-text ${completedTodo.checked === true ? 'check' : ''}`}>
-                            {completedTodo.content}
+                        <span className={`list-todo-text ${task.isActive}`}>
+                            {task.title}
                         </span>
                         <span
                             className="material-icons"
-                            onClick={() => handleRemoveClick(completedTodo)}>
+                            onClick={() => handleRemoveClick(task)}>
                             delete_outline
                         </span>
                     </div>
                 ))
             }
             {
-                checkStatus === 'Completed' && completedTodos.length > 0 &&
+                checkStatus === 'Completed' && tasks.length > 0 &&
                 <button
                     className="list-delete"
-                    onClick={handleRemoveAllClick}>
+                    onClick={() => handleRemoveAllTaskClick()}>
                     <span className="material-icons">delete_outline</span>
                     <span className="list-delete-text">delete all</span>
                 </button>

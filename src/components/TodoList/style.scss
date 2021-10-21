@@ -10,10 +10,8 @@
     font-size: 18px;
     line-height: 22px;
     color: #000000;
-
     max-width: 50%;
     margin: 28px auto;
-
     &-todo {
         margin-bottom: 20px;
         &-checkbox {
@@ -22,7 +20,7 @@
         }
         &-text {
             margin-left: 15px;
-            &.check {
+            &.false {
                 text-decoration-line: line-through;
             }
         }
@@ -64,5 +62,12 @@
         &:hover {
             box-shadow: 0 0 15px #f68282;
         }
+    }
+}
+
+/*REPONSIVE*/
+@media screen and (max-width: 1099px) {
+    .list {
+        max-width: 80%;
     }
 }

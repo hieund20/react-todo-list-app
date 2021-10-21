@@ -3,40 +3,54 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 Todo.propTypes = {
+    tasks: PropTypes.array,
     activeButton: PropTypes.string,
     setActiveButton: PropTypes.func,
     onTodoSubmit: PropTypes.func
 };
 
 Todo.defaultProps = {
+    tasks: [],
     activeButton: '',
     setActiveButton: null,
     onTodoSubmit: null
 }
 
-
 function Todo(props) {
-    const { activeButton, setActiveButton, onTodoSubmit } = props;
-    const [value, setValue] = useState('');
+    const { tasks, activeButton, setActiveButton, onTodoSubmit } = props;
+    const [title, setTitle] = useState('');
 
     function handleChange(e) {
-        setValue(e.target.value);
+        setTitle(e.target.value);
     }
 
-    function handleAddNewTodo(e) {
-        e.preventDefault();
+    function handleAddNewTask() {
         //Do not something if onTodoSubmit = null
         if (onTodoSubmit === null) return;
-
-        const todo = {
-            content: value,
-            checked: false
+        if (title === '') {
+            alert("You don't input new task !!");
+            return;
+        }
+        const task = {
+            key: tasks.length + 1,
+            title: title,
+            isActive: true
         }
         //Send input value to parent
-        onTodoSubmit(todo);
-
+        onTodoSubmit(task);
         //Reset input value when add a new todo
-        setValue('');
+        setTitle('');
+    }
+
+    function handleCLickAdd(e) {
+        e.preventDefault();
+        handleAddNewTask();
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            handleAddNewTask();
+        }
     }
 
     return (
@@ -64,14 +78,14 @@ function Todo(props) {
                         className="todo-add-input"
                         type="text"
                         placeholder="add details"
-                        value={value}
-                        onChange={(e) => handleChange(e)} />
+                        value={title}
+                        onChange={(e) => handleChange(e)}
+                        onKeyPress={(e) => handleKeyPress(e)} />
                     <button
                         className="todo-add-button"
-                        onClick={(e) => handleAddNewTodo(e)}>Add</button>
+                        onClick={(e) => handleCLickAdd(e)}>Add</button>
                 </div>
             }
-
         </div >
     );
 }
