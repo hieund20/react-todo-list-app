@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { uuid } from 'uuidv4';
 import PropTypes from 'prop-types';
 import './style.scss';
 
@@ -17,7 +18,7 @@ Todo.defaultProps = {
 }
 
 function Todo(props) {
-    const { tasks, activeButton, setActiveButton, onTodoSubmit } = props;
+    const { activeButton, setActiveButton, onTodoSubmit } = props;
     const [title, setTitle] = useState('');
 
     function handleChange(e) {
@@ -32,7 +33,7 @@ function Todo(props) {
             return;
         }
         const task = {
-            key: tasks.length + 1,
+            key: uuid(),
             title: title,
             isActive: true
         }
